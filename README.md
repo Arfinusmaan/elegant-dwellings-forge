@@ -1,73 +1,147 @@
-# Welcome to your Lovable project
+# Luxuria - Premium Furniture Store
 
-## Project info
+A luxury furniture e-commerce website built with React (.jsx), Tailwind CSS, and a custom 8-point spacing system.
 
-**URL**: https://lovable.dev/projects/2b174622-2952-4660-9d80-1bc256e18cc8
+## 🎨 Design System
 
-## How can I edit this code?
+- **Colors**: Soft beige (#F6F1EC), deep black (#0B0B0B), muted warm gray (#7D7A75)
+- **Typography**: Inter (body), Playfair Display (headings)
+- **Spacing**: 8-point system (1=8px, 2=16px, 3=24px, 4=32px, 5=40px, 6=48px, 8=64px, 10=80px)
+- **Typography Scale**: H1: 48px, H2: 32px, H3: 24px, H4: 20px, Body Large: 18px, Body: 16px, Small: 14px
 
-There are several ways of editing your application.
+## 🚀 Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/2b174622-2952-4660-9d80-1bc256e18cc8) and start prompting.
+- Node.js (v16 or higher)
+- npm or yarn
 
-Changes made via Lovable will be committed automatically to this repo.
+### Installation
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+1. Clone the repository:
+```bash
 git clone <YOUR_GIT_URL>
+cd luxuria-furniture-store
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies:
+```bash
+npm install
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📁 Project Structure
 
-**Use GitHub Codespaces**
+```
+src/
+├── assets/              # Generated luxury furniture images
+├── components/
+│   └── ui/             # Reusable UI components (.jsx only)
+├── content/            # Text content files (.txt)
+├── pages/              # Page components (.jsx only)
+│   ├── Index.jsx       # Homepage with hero, featured products, new arrivals
+│   ├── Categories.jsx  # Product category pages with filtering
+│   ├── ProductDetail.jsx # Individual product pages
+│   ├── Cart.jsx        # Shopping cart functionality
+│   ├── Wishlist.jsx    # Saved items for later
+│   └── NotFound.jsx    # 404 error page
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+├── App.jsx             # Main app component with routing
+├── main.jsx            # Entry point
+└── index.css           # Global styles and design system
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🛍️ Features
 
-## What technologies are used for this project?
+### Homepage
+- Sticky navigation with category links and cart/wishlist access
+- Full-width hero section with lifestyle imagery and CTAs
+- Featured products grid (6 items, responsive)
+- Horizontal scrolling new arrivals section
+- Lifestyle inspiration section
+- Newsletter signup footer
 
-This project is built with:
+### E-commerce Functionality
+- **Categories**: Browse by Living Room, Bedroom, Dining, Office, Outdoor
+- **Product Details**: Full product information, image gallery, reviews
+- **Shopping Cart**: Add/remove items, quantity updates, price calculations
+- **Wishlist**: Save items for later, stock status tracking
+- **Responsive Design**: Mobile-first approach with smooth interactions
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Design Features
+- **Luxury Aesthetic**: Minimalist design with premium materials focus
+- **8-Point Spacing System**: Consistent spacing throughout
+- **Custom Typography Scale**: Hierarchical text sizing
+- **Smooth Animations**: Hover effects, image scaling, transitions
+- **Accessibility**: Semantic HTML, keyboard navigation, alt text
 
-## How can I deploy this project?
+## 🎯 Pages & Routes
 
-Simply open [Lovable](https://lovable.dev/projects/2b174622-2952-4660-9d80-1bc256e18cc8) and click on Share -> Publish.
+- `/` - Homepage
+- `/categories/:category` - Category pages (living-room, bedroom, dining, office, outdoor, all)
+- `/product/:id` - Individual product details
+- `/cart` - Shopping cart
+- `/wishlist` - Saved items
+- `/404` - Not found page
 
-## Can I connect a custom domain to my Lovable project?
+## 🛠️ Technologies Used
 
-Yes, you can!
+- **React** (JSX only, no TypeScript)
+- **Vite** (Build tool and dev server)
+- **Tailwind CSS** (Styling with custom design system)
+- **React Router** (Navigation)
+- **Lucide React** (Icons)
+- **Custom 8-point spacing system**
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📱 Responsive Breakpoints
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Mobile: < 768px (1 column layouts)
+- Tablet: 768px - 1024px (2 column layouts)
+- Desktop: > 1024px (3-4 column layouts)
+
+## 🎨 Content Files
+
+Brand content is stored in `/src/content/*.txt`:
+- `brand.txt` - Logo, taglines, hero content
+- `products.txt` - Product names and pricing
+- `navigation.txt` - Menu items and footer links
+
+## 🚀 Deployment
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist/` directory.
+
+### Deploy to Lovable
+
+1. Open [Lovable](https://lovable.dev/projects/2b174622-2952-4660-9d80-1bc256e18cc8)
+2. Click Share → Publish
+3. Your site will be live on a Lovable subdomain
+
+### Custom Domain
+
+Navigate to Project > Settings > Domains in Lovable to connect your custom domain.
+
+## 🔧 Development Notes
+
+- All components use `.jsx` extension (no TypeScript)
+- Design system is defined in `src/index.css` and `tailwind.config.ts`
+- Images are imported as ES6 modules from `/src/assets/`
+- Responsive images use lazy loading attributes
+- Semantic HTML structure for accessibility
+- Custom button and card variants for luxury design
+
+## 📄 License
+
+This project is private and proprietary.

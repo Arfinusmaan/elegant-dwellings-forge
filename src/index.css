@@ -8,51 +8,49 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 37 23% 95%; /* Soft beige #F6F1EC */
+    --foreground: 0 0% 4%; /* Deep black #0B0B0B */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 37 23% 95%; /* Soft beige */
+    --card-foreground: 0 0% 4%; /* Deep black */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 37 23% 95%; /* Soft beige */
+    --popover-foreground: 0 0% 4%; /* Deep black */
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 4%; /* Deep black #0B0B0B */
+    --primary-foreground: 37 23% 95%; /* Soft beige for contrast */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 25 5% 47%; /* Muted warm gray #7D7A75 */
+    --secondary-foreground: 37 23% 95%; /* Soft beige */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 37 23% 92%; /* Lighter beige */
+    --muted-foreground: 25 5% 47%; /* Warm gray */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 37 23% 90%; /* Accent beige */
+    --accent-foreground: 0 0% 4%; /* Deep black */
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 37 23% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 37 23% 88%; /* Light beige border */
+    --input: 37 23% 88%; /* Light beige input */
+    --ring: 0 0% 4%; /* Deep black ring */
 
-    --radius: 0.5rem;
+    --radius: 8px; /* 8px radius as specified */
 
-    --sidebar-background: 0 0% 98%;
+    /* Luxury gradients */
+    --gradient-hero: linear-gradient(135deg, rgba(11, 11, 11, 0.4), transparent);
+    --shadow-luxury: 0 4px 20px rgba(11, 11, 11, 0.08);
+    --shadow-card: 0 2px 8px rgba(125, 122, 117, 0.12);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 37 23% 96%;
+    --sidebar-foreground: 25 5% 47%;
+    --sidebar-primary: 0 0% 4%;
+    --sidebar-primary-foreground: 37 23% 95%;
+    --sidebar-accent: 37 23% 92%;
+    --sidebar-accent-foreground: 0 0% 4%;
+    --sidebar-border: 37 23% 88%;
+    --sidebar-ring: 0 0% 4%;
   }
 
   .dark {
@@ -101,5 +99,28 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .shadow-luxury {
+    box-shadow: var(--shadow-luxury);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
   }
 }
