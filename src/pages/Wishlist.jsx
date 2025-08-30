@@ -1,53 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useWishlist } from '@/context/WishlistContext';
+import { useCart } from '@/context/CartContext';
 import { Heart, ShoppingCart, X } from 'lucide-react';
-
-// Import images
-import sofaImage from '@/assets/product-sofa-luxury.jpg';
-import diningImage from '@/assets/product-dining-table.jpg';
-import bedroomImage from '@/assets/product-bedroom-set.jpg';
+import { useToast } from '@/hooks/use-toast';
 
 const Wishlist = () => {
-  const [wishlistItems, setWishlistItems] = useState([
-    {
-      id: 1,
-      name: 'Bergen Luxury Sofa',
-      price: '$3,299',
-      image: sofaImage,
-      inStock: true
-    },
-    {
-      id: 2,
-      name: 'Walnut Dining Collection',
-      price: '$2,899',
-      image: diningImage,
-      inStock: true
-    },
-    {
-      id: 4,
-      name: 'Scandi Bedroom Set',
-      price: '$4,599',
-      image: bedroomImage,
-      inStock: false
-    }
-  ]);
+  const { items, removeFromWishlist } = useWishlist();
+  const { addToCart } = useCart();
+  const { toast } = useToast();
 
-  const removeFromWishlist = (id) => {
-    setWishlistItems(items => items.filter(item => item.id !== id));
+  const handleRemoveFromWishlist = (productId, productName) => {
+    removeFromWishlist(productId);
+    toast({
+      title: "Removed from wishlist",
+      description: `${productName} has been removed from your wishlist.`,
+    });
   };
 
-  if (wishlistItems.length === 0) {
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
+
+  if (items.length === 0) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 md:px-8 py-20">
+        <div className="container mx-auto px-4 md:px-6 py-20">
           <div className="text-center max-w-md mx-auto">
             <Heart className="h-16 w-16 mx-auto mb-6 text-muted-foreground" />
-            <h1 className="font-display text-h2 font-bold text-foreground mb-4">
+            <h1 className="font-display text-3xl font-bold text-foreground mb-4">
               Your Wishlist is Empty
             </h1>
-            <p className="text-body-large text-muted-foreground mb-8">
+            <p className="text-lg text-muted-foreground mb-8">
               Save items you love to your wishlist for easy access later.
             </p>
             <Link to="/categories/all">
@@ -65,29 +55,29 @@ const Wishlist = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="border-b bg-background">
-        <div className="container mx-auto px-4 md:px-8 py-8">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+        <div className="container mx-auto px-4 md:px-6 py-6">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
             <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
             <span>/</span>
             <span className="text-foreground">Wishlist</span>
           </div>
           <div className="flex items-center gap-3 mb-2">
-            <Heart className="h-8 w-8 text-primary fill-primary" />
-            <h1 className="font-display text-h1 font-bold text-foreground">
+            <Heart className="h-6 w-6 text-primary fill-primary" />
+            <h1 className="font-display text-3xl font-bold text-foreground">
               My Wishlist
             </h1>
           </div>
-          <p className="text-body-large text-muted-foreground">
-            {wishlistItems.length} {wishlistItems.length === 1 ? 'item' : 'items'} saved for later
+          <p className="text-lg text-muted-foreground">
+            {items.length} {items.length === 1 ? 'item' : 'items'} saved for later
           </p>
         </div>
       </div>
 
-      <main className="container mx-auto px-4 md:px-8 py-12">
+      <main className="container mx-auto px-4 md:px-6 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {wishlistItems.map((item) => (
+          {items.map((item) => (
             <Card key={item.id} className="overflow-hidden group hover:shadow-luxury transition-all duration-300">
-              <div className="relative aspect-[3/2] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -99,38 +89,29 @@ const Wishlist = () => {
                 {/* Remove button */}
                 <Button
                   variant="ghost"
-                  size="icon"
-                  onClick={() => removeFromWishlist(item.id)}
-                  className="absolute top-4 right-4 bg-white/90 hover:bg-white text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  size="sm"
+                  onClick={() => handleRemoveFromWishlist(item.id, item.name)}
+                  className="absolute top-3 right-3 bg-white/90 hover:bg-white text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 >
                   <X className="h-4 w-4" />
                 </Button>
-                
-                {/* Stock status */}
-                {!item.inStock && (
-                  <div className="absolute bottom-4 left-4 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-small font-medium">
-                    Out of Stock
-                  </div>
-                )}
               </div>
               
-              <CardContent className="p-6">
-                <div className="mb-4">
-                  <h3 className="text-h4 font-semibold text-foreground mb-2">{item.name}</h3>
-                  <p className="text-h3 font-bold text-foreground">{item.price}</p>
+              <CardContent className="p-4">
+                <div className="mb-3">
+                  <h3 className="text-lg font-semibold text-foreground mb-1">{item.name}</h3>
+                  <p className="text-xl font-bold text-foreground">{item.priceStr || `$${item.price.toLocaleString()}`}</p>
                 </div>
                 
                 <div className="space-y-2">
-                  <Link to={`/product/${item.id}`} className="block">
-                    <Button 
-                      variant={item.inStock ? "outline" : "ghost"} 
-                      className="w-full font-medium"
-                      disabled={!item.inStock}
-                    >
-                      <ShoppingCart className="h-4 w-4 mr-2" />
-                      {item.inStock ? 'Add to Cart' : 'Out of Stock'}
-                    </Button>
-                  </Link>
+                  <Button 
+                    variant="outline" 
+                    className="w-full font-medium"
+                    onClick={() => handleAddToCart(item)}
+                  >
+                    <ShoppingCart className="h-4 w-4 mr-2" />
+                    Add to Cart
+                  </Button>
                   
                   <Link to={`/product/${item.id}`}>
                     <Button variant="ghost" className="w-full font-medium">
@@ -155,59 +136,16 @@ const Wishlist = () => {
             variant="hero" 
             size="lg"
             onClick={() => {
-              // Add all in-stock items to cart
-              const inStockItems = wishlistItems.filter(item => item.inStock);
-              if (inStockItems.length > 0) {
-                console.log('Adding to cart:', inStockItems);
-                // In a real app, would dispatch to cart store
-              }
+              items.forEach(item => addToCart(item));
+              toast({
+                title: "All items added to cart",
+                description: `${items.length} items have been added to your cart.`,
+              });
             }}
-            disabled={!wishlistItems.some(item => item.inStock)}
+            disabled={items.length === 0}
           >
             Add All to Cart
           </Button>
-        </div>
-
-        {/* Recently Viewed or Recommendations */}
-        <div className="mt-16">
-          <h2 className="font-display text-h2 font-bold text-foreground mb-8 text-center">
-            You Might Also Like
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { id: 7, name: 'Minimalist Side Table', price: '$899', image: sofaImage },
-              { id: 8, name: 'Luxury Bar Stool', price: '$599', image: diningImage },
-              { id: 9, name: 'Designer Floor Lamp', price: '$1,299', image: bedroomImage },
-            ].map((product) => (
-              <Card key={product.id} className="overflow-hidden group hover:shadow-luxury transition-all duration-300">
-                <div className="relative aspect-[3/2] overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-4 right-4 bg-white/90 hover:bg-white text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  >
-                    <Heart className="h-4 w-4" />
-                  </Button>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-h4 font-semibold text-foreground mb-2">{product.name}</h3>
-                  <p className="text-h4 font-bold text-foreground mb-4">{product.price}</p>
-                  <Link to={`/product/${product.id}`}>
-                    <Button variant="outline" className="w-full">
-                      <ShoppingCart className="h-4 w-4 mr-2" />
-                      Add to Cart
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
         </div>
       </main>
     </div>
